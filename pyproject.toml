@@ -9,6 +9,8 @@ packages = [{include = "embeddinganalysis", from = "src"}]
 
 [tool.poetry.dependencies]
 torch = ">=2.13.0,<3.0.0"
+transformers = "^5.15.0"
+accelerate = "^1.14.0"
 
 
 [build-system]
