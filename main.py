@@ -5,12 +5,12 @@ model_name = "meta-llama/Llama-3.2-3B"
 
 concepts = ["Self(I)", "Number(2)", "Question(Who/which)", "Quantity(More)", "Quality(Good)", "Negation(Not)", "Preposition(For)"]
 test_tokens_by_language = {
-    "english": ["I", "two", "who", "more", "good", "not", "for"],
-    "spanish": ["yo", "dos","cual", "más", "bien", "no", "por"],
-    "german": ["ich", "zwei","wer", "mehr", "gut", "nicht", "für"],
-    "french": ["je", "deux", "qui", "plus", "bon", "pas", "pour"],
-    "italian": ["io", "due"," chi", "più", "bene", "non", "per"],
-    "portuguese": ["eu", "dois","quem", "mais", "bom", "não", "para"],
+    "english": ["I", "two", "more", "good", "not", "for"],
+    "spanish": ["yo", "dos", " más", " bien", "no", "por"],
+    "german": ["ich", " zwei", " mehr", " gut", " nicht", " für"],
+    "french": ["je", " deux", "plus", "bon", "pas", "pour"],
+    "italian": ["io", "due", " più", " bene", "non", "per"],
+    "portuguese": ["eu", " dois", " mais", " bom", " não", "para"],
 }
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
