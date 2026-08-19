@@ -4,6 +4,8 @@ import torch
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import normalize
+from sklearn.metrics import silhouette_score
+
 
 model_name = "meta-llama/Llama-3.2-3B"
 
@@ -55,7 +57,7 @@ kmeans.fit(embeddings)
 labels = kmeans.labels_
 print(labels)
 
-# Get cluster centers
+
 centers = kmeans.cluster_centers_
 print(centers)
 
@@ -84,4 +86,9 @@ for i in range(6):
 df_results = pd.DataFrame(test_data)
 
 print(kmeans.inertia_)
+score = silhouette_score(
+    embeddings,
+    kmeans.labels_
+)
+print(score)
 print(df_results.pivot(index="language", columns="concept", values="cluster"))
