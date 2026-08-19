@@ -1,5 +1,6 @@
 import sys
 
+import torch.nn.functional as F
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from cuml.cluster import KMeans
@@ -59,13 +60,26 @@ embeddings = embeddings[indices].detach().cpu().numpy()
 embeddings = normalize(embeddings)
 embeddings_gpu = cp.asarray(embeddings)
 
+
+
+
+output_embeddings = model.lm_head.weight.detach().cpu().float()
+output_embeddings = F.normalize(output_embeddings, p=2, dim=1)
+output_embeddings = output_embeddings[indices]
+output_embeddings = output_embeddings.numpy()
+
+
+
+embeddings = output_embeddings
+
+
 knn = NearestNeighbors(n_neighbors=10, metric='euclidean', algorithm='brute')
 knn.fit(embeddings)
 
-race_vec = get_contextual_vector("she wanted to run the race", "▁run")
-program_vec = get_contextual_vector("she wanted to run the program", "▁run")
+race_vec = get_contextual_vector("the firefighter hosed down the fire", "▁fire")
+program_vec = get_contextual_vector("the gun was loaded and he opened fire", "▁fire")
 
-query_pos = tokens.index("▁run")
+query_pos = tokens.index("▁fire")
 query_vec = embeddings[query_pos].reshape(1, -1)
 
 print(race_vec == program_vec)
